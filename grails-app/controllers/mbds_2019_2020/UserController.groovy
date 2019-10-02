@@ -29,18 +29,17 @@ class UserController {
             notFound()
             return
         }
-        def file = request.getFile('thumbnail')
+        def file = request.getFile('file')
         if (file == null || file.empty) {
             flash.message = "File cannot be empty"
-        } else {
+        } else
+        {
             int randomStringLength = 4
             String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
             String randomString = random(randomStringLength, charset.toCharArray())
-            def illustrationInstance = new Illustration()
-            illustrationInstance.filename = file.originalFilename + randomString
-            file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/' + illustrationInstance.filename))
-            user.thumbnail = illustrationInstance}
-
+            file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/' + file.originalFilename + randomString))
+            user.thumbnail = new Illustration(filename : file.originalFilename + randomString)
+        }
 
             try {
                 userService.save(user)

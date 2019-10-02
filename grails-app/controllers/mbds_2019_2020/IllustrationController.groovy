@@ -90,17 +90,17 @@ class IllustrationController {
 
     def upload() {
 
-        def file = request.getFile('filename')
-        if(file == null || file.empty) {
-            flash.message = "File cannot be empty"
-        } else {
-            int randomStringLength = 32
-            String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-            String randomString = random(randomStringLength, charset.toCharArray())
-            def illustrationInstance = new Illustration()
-            illustrationInstance.filename = file.originalFilename +randomString
-            illustrationInstance.save()
-            file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/'+ illustrationInstance.filename))
+                def file = request.getFile('filename')
+                if(file == null || file.empty) {
+                    flash.message = "File cannot be empty"
+                } else {
+                    int randomStringLength = 5
+                    String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
+                    String randomString = random(randomStringLength, charset.toCharArray())
+                    def illustrationInstance = new Illustration()
+                    illustrationInstance.filename = file.originalFilename +randomString
+                    illustrationInstance.save()
+                    file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/'+ illustrationInstance.filename))
 
         }
         redirect (action:'index')

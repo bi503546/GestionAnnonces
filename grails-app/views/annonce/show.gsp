@@ -19,7 +19,41 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="annonce" />
+%{--            <f:display bean="annonce" />--}%
+            <ol class="property-list user">
+
+                <li class="fieldcontain">
+                    <span id="username-label" class="property-label">Title</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${annonce.title}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="title-label" class="property-label">Description</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${annonce.description}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="description-label" class="property-label">Valid Till</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${annonce.validTill}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="state-label" class="property-label">State</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${annonce.state}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="annonces-label" class="property-label">Iluustrations d'annonce </span>
+                    <div class="property-value" aria-labelledby="annonces-label">
+                        <ul>
+                            <g:each in="${annonce.illustrations}" var="illustration">
+                                <asset:image style="margin-left: 20px; width:80px; height:80px" src="${illustration.filename}"/>
+                            </g:each>
+                        </ul>
+                    </div>
+                </li>
+
+            </ol>
             <g:form resource="${this.annonce}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.annonce}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

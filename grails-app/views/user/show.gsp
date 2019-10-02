@@ -19,7 +19,36 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="user" />
+%{--                    <f:display bean="user" />--}%
+            <ol class="property-list user">
+
+                <li class="fieldcontain">
+                    <span id="username-label" class="property-label">Username</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${user.username}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="password-label" class="property-label">Password</span>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${user.password}</a></div>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="thumbnail-label" class="property-label">Thumbnail</span>
+                    <asset:image style="margin-left: 20px" src="${user.thumbnail.filename}"/>
+                </li>
+
+                <li class="fieldcontain">
+                    <span id="annonces-label" class="property-label">Annonces</span>
+                    <div class="property-value" aria-labelledby="annonces-label">
+                        <ul>
+                            <g:each in="${user.annonces}" var="ann">
+                                <li><g:link controller="annonce" action="show" id="${ann.id}">${ann.title}</g:link></li>
+                            </g:each>
+                        </ul>
+                    </div>
+                </li>
+
+            </ol>
             <g:form resource="${this.user}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.user}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

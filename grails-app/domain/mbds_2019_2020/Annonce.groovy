@@ -8,6 +8,7 @@ class Annonce {
     Boolean state = Boolean.FALSE
 
     static belongsTo=[author: User]
+
     static hasMany=[illustrations: Illustration]
 
     static constraints = {
@@ -16,8 +17,5 @@ class Annonce {
         validTill blank: false
     }
 
-    String toString(){
-        return title
-    }
 
 }

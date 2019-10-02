@@ -25,14 +25,49 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
+            
+%{--            ancien formaulaire sans les proprietes iluustration--}%
+            
             <g:form resource="${this.annonce}" method="POST">
-                <fieldset class="form">
-                    <f:all bean="annonce"/>
+                    <f:field bean="annonce" property="title"/>
+                    <f:field bean="annonce" property="description"/>
+                    <f:field bean="annonce" property="validTill"/>
+                    <f:field bean="annonce" property="author"/>
+                   <f:field bean="annonce" property="illustrations">
+                       <g:uploadForm name="myUpload" action="save" method="POST">
+                           <input type="file" name="illustration" />
+                           <g:submitButton name="create" value="create" />
+                       </g:uploadForm>
+                   </f:field>
+%{--                    <f:all bean="annonce"/>--}%
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
             </g:form>
+            
+            
+            
+%{--            <form action="save" method="post" >--}%
+%{--                <fieldset class="form">--}%
+%{--                    <div class='fieldcontain'>--}%
+%{--                        <label for='title'>Title<span class='required-indicator'>*</span></label>--}%
+%{--                        <input type="text" name="Title" value="" required="" id="title" />--}%
+%{--                    </div>--}%
+%{--                    <div class='fieldcontain'>--}%
+%{--                        <label for='description'>Description<span class='required-indicator'>*</span></label>--}%
+%{--                        <input type="text" name="Description" value="" required="" id="description" />--}%
+%{--                    </div>--}%
+%{--                    <div class='fieldcontain'>--}%
+%{--                        <label for='author'>Author</label>--}%
+%{--                        <input type="text" name="Author" value="" id="author" />--}%
+%{--                    </div>--}%
+%{--                </fieldset>--}%
+%{--                <fieldset class="buttons">--}%
+%{--                    <input type="submit" name="create" class="save" value="Create" id="create" />--}%
+%{--                </fieldset>--}%
+%{--            </form>--}%
+
         </div>
     </body>
 </html>

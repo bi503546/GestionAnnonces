@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'illustration.label', default: 'Illustration')}" />
+        <g:set var="entityName" value="${message(code: 'pointOfInterest.label', default: 'PointOfInterest')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#show-illustration" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#show-pointOfInterest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -14,18 +14,15 @@
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="show-illustration" class="content scaffold-show" role="main">
+        <div id="show-pointOfInterest" class="content scaffold-show" role="main">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-
-            <h1><f:display bean="illustration" property="filename" /></h1>
-            <asset:image src="${illustration.filename}"/>
-
-            <g:form resource="${this.illustration}" method="DELETE">
+            <f:display bean="pointOfInterest" />
+            <g:form resource="${this.pointOfInterest}" method="DELETE">
                 <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="${this.illustration}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                    <g:link class="edit" action="editFeaturedImage" resource="${this.pointOfInterest}"><g:message code="pointOfInterest.featuredImageUrl.edit.label" default="Edit Featured Image" /></g:link>
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                 </fieldset>
             </g:form>

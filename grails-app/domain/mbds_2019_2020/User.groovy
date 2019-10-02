@@ -11,7 +11,7 @@ class User {
 
     static constraints = {
         username blank:false, nullable :false, size:4..20
-        password password:true,blank:false, nullable: false, size:5..20
+        password password:true, blank:false, nullable: false, size:5..20
         thumbnail nullable: false
         annonces nullable: true
 

@@ -1,5 +1,13 @@
 ---
 grails:
+    plugins:
+        awssdk:
+            s3:
+                region: eu-west-1
+                bucket: grails-guides
+    guides:
+        cdnFolder: /Users/imen/Sites/GrailsGuides/UploadFiles
+        cdnRootUrl: http://localhost:8091
     profile: web
     codegen:
         defaultPackage: annonceproject
@@ -64,6 +72,9 @@ grails:
         cache:
             maxsize: 1000
     controllers:
+        upload:
+            maxFileSize: 26214400
+            maxRequestSize: 26214400
         defaultScope: singleton
     converters:
         encoding: UTF-8
@@ -128,3 +139,6 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 server:
     port : 8091
+    contextPath: "/projet/"
+maconfig: 'C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/'
+assets_url: 'http://localhost:8091/projet/assets'

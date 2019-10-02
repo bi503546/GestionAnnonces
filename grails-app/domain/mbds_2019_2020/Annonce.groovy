@@ -16,8 +16,5 @@ class Annonce {
         validTill blank: false
     }
 
-    String toString(){
-        return title
-    }
 
 }

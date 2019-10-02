@@ -18,9 +18,9 @@ class BootStrap {
                             description: "description",
                             validTill: new Date(),
                             state: Boolean.TRUE)
-                            .addToIllustrations(new Illustration(filename: "/assets/images/advancedgrails.svg"))
-                            .addToIllustrations(new Illustration(filename: "/assets/images/favicon.ico"))
-                            .addToIllustrations(new Illustration(filename: "filename_3"))
+                            .addToIllustrations(new Illustration(filename: "advancedgrails.svg"))
+                            .addToIllustrations(new Illustration(filename: "favicon.ico"))
+                            .addToIllustrations(new Illustration(filename: "apple-touch-icon-retina.png"))
             )
         }
         userInstance.save(flush:true, failOnError:true)

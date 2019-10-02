@@ -1,6 +1,8 @@
 package mbds_2019_2020
 
 import grails.validation.ValidationException
+
+import static org.apache.commons.lang.RandomStringUtils.random
 import static org.springframework.http.HttpStatus.*
 
 class UserController {
@@ -11,7 +13,7 @@ class UserController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond userService.list(params), model:[userCount: userService.count()]
+        respond userService.list(params), model: [userCount: userService.count()]
     }
 
     def show(Long id) {
@@ -27,22 +29,34 @@ class UserController {
             notFound()
             return
         }
+        def file = request.getFile('thumbnail')
+        if (file == null || file.empty) {
+            flash.message = "File cannot be empty"
+        } else {
+            int randomStringLength = 4
+            String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
+            String randomString = random(randomStringLength, charset.toCharArray())
+            def illustrationInstance = new Illustration()
+            illustrationInstance.filename = file.originalFilename + randomString
+            file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/' + illustrationInstance.filename))
+            user.thumbnail = illustrationInstance}
 
-        try {
-            userService.save(user)
-        } catch (ValidationException e) {
-            respond user.errors, view:'create'
-            return
-        }
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
-                redirect user
+            try {
+                userService.save(user)
+            } catch (ValidationException e) {
+                respond user.errors, view: 'create'
+                return
             }
-            '*' { respond user, [status: CREATED] }
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                    redirect user
+                }
+                '*' { respond user, [status: CREATED] }
+            }
         }
-    }
 
     def edit(Long id) {
         respond userService.get(id)
@@ -55,9 +69,9 @@ class UserController {
         }
 
         try {
-            userService.save(user)
+            userService.(user)
         } catch (ValidationException e) {
-            respond user.errors, view:'edit'
+            respond user.errors, view: 'edit'
             return
         }
 
@@ -66,7 +80,7 @@ class UserController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
                 redirect user
             }
-            '*'{ respond user, [status: OK] }
+            '*' { respond user, [status: OK] }
         }
     }
 
@@ -81,9 +95,9 @@ class UserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -93,7 +107,7 @@ class UserController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

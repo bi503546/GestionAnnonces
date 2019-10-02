@@ -1,6 +1,9 @@
 package mbds_2019_2020
 
 import grails.validation.ValidationException
+import org.apache.commons.lang.RandomStringUtils
+
+import static org.apache.commons.lang.RandomStringUtils.*
 import static org.springframework.http.HttpStatus.*
 
 class IllustrationController {
@@ -30,8 +33,10 @@ class IllustrationController {
 
         try {
             illustrationService.save(illustration)
+            println "creation avec succes"
         } catch (ValidationException e) {
             respond illustration.errors, view:'create'
+            println "creation failed"
             return
         }
 
@@ -43,9 +48,62 @@ class IllustrationController {
             '*' { respond illustration, [status: CREATED] }
         }
     }
+    def uploadFeaturedImage(FeaturedImageCommand cmd) {
+        if (cmd == null) {
+            notFound()
+           return
+        }
+
+        if (cmd.hasErrors()) {
+            respond(cmd.errors, model: [illustration : cmd], view: 'editFeaturedImage')
+            return
+        }
+
+        Illustration illustration = illustrationService.update(cmd)
+
+        if (illustration == null) {
+            notFound()
+            return
+        }
+
+        if (illustration.hasErrors()) {
+            respond(illustration.errors, model: [illustration: illustration], view: 'editFeaturedImage')
+            return
+        }
+
+        Locale locale = request.locale
+        flash.message = crudMessageService.message(CRUD.UPDATE, domainName(locale), cmd.id, locale)
+    }
+        def featuredImage(Long id) {
+        Illustration illustration = illustrationService.get(id)
+        if (!illustration || illustration.filename == null) {
+            notFound()
+            return
+        }
+        render file: illustration.filename,
+                contentType: illustration.filename
+    }
 
     def edit(Long id) {
         respond illustrationService.get(id)
+    }
+
+    def upload() {
+
+        def file = request.getFile('filename')
+        if(file == null || file.empty) {
+            flash.message = "File cannot be empty"
+        } else {
+            int randomStringLength = 32
+            String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
+            String randomString = random(randomStringLength, charset.toCharArray())
+            def illustrationInstance = new Illustration()
+            illustrationInstance.filename = file.originalFilename +randomString
+            illustrationInstance.save()
+            file.transferTo(new File('C:/Users/imen/nouveauDossier/GestionAnnonces/grails-app/assets/importedImages/'+ illustrationInstance.filename))
+
+        }
+        redirect (action:'index')
     }
 
     def update(Illustration illustration) {

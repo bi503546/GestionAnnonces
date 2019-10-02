@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'illustration.label', default: 'Illustration')}" />
+        <g:set var="entityName" value="${message(code: 'pointOfInterest.label', default: 'PointOfInterest')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#edit-illustration" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#edit-pointOfInterest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -14,28 +14,27 @@
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="edit-illustration" class="content scaffold-edit" role="main">
+        <div id="edit-pointOfInterest" class="content scaffold-edit" role="main">
             <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.illustration}">
+            <g:hasErrors bean="${this.pointOfInterest}">
             <ul class="errors" role="alert">
-                <g:eachError bean="${this.illustration}" var="error">
+                <g:eachError bean="${this.pointOfInterest}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <f:all bean="illustration" except="picture,featuredImageContentType"/>
-            <g:form resource="${this.illustration}" method="PUT">
-                <g:hiddenField name="version" value="${this.illustration?.version}" />
-                <fieldset class="form">
-                    <f:all bean="illustration"/>
-                </fieldset>
+            <f:all bean="pointOfInterest" except="featuredImageUrl"/>
+            <g:uploadForm name="uploadFeaturedImage" action="uploadFeaturedImage">
+                <g:hiddenField name="id" value="${this.pointOfInterest?.id}" />
+                <g:hiddenField name="version" value="${this.pointOfInterest?.version}" />
+                <input type="file" name="featuredImageFile" />
                 <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+                    <input class="save" type="submit" value="${message(code: 'pointOfInterest.featuredImage.upload.label', default: 'Upload')}" />
                 </fieldset>
-            </g:form>
+            </g:uploadForm>
         </div>
     </body>
 </html>

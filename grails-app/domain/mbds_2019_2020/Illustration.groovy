@@ -8,7 +8,6 @@ class Illustration {
         filename blank: false, nullable: false
     }
 
-
     String toString(){
         return filename
     }

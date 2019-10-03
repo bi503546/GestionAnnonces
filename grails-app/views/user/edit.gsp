@@ -26,15 +26,43 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.user}" method="PUT">
+            <form action="save" method="PUT" enctype="multipart/form-data">
                 <g:hiddenField name="version" value="${this.user?.version}" />
-                <fieldset class="form">
-                    <f:all bean="user"/>
+                <fieldset class="form" >
+                    <div class="fieldcontain required">
+                        <label for="username">Username
+                            <span class="required-indicator">*</span>
+                            <input type="text" name="username" id="username" value="${user.username}">
+
+                        </label>
+                    </div>
+                    <div class="fieldcontain required">
+                        <label for="password">Password
+                            <span class="required-indicator">*</span>
+                            <input type="text" name="password" id="password" value="${user.password}">
+                        </label>
+                    </div>
+
+                    <div class="fieldcontain required">
+                        <label for="thumbnail">Thumbnail
+                            <input type="file" name="file" id="thumbnail">
+                        </label>
+                    </div>
+
+                <div class="fieldcontain required">
+                    <label>Annonces
+                        <ul>
+                            <g:each in="${user.annonces}" var="ann">
+                                <li><g:link controller="annonce" action="show" id="${ann.id}">${ann.title}</g:link></li>
+                            </g:each>
+                        </ul>
+                    </label>
+                </div>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>
-            </g:form>
+            </form>
         </div>
     </body>
 </html>

@@ -48,41 +48,6 @@ class IllustrationController {
             '*' { respond illustration, [status: CREATED] }
         }
     }
-    def uploadFeaturedImage(FeaturedImageCommand cmd) {
-        if (cmd == null) {
-            notFound()
-           return
-        }
-
-        if (cmd.hasErrors()) {
-            respond(cmd.errors, model: [illustration : cmd], view: 'editFeaturedImage')
-            return
-        }
-
-        Illustration illustration = illustrationService.update(cmd)
-
-        if (illustration == null) {
-            notFound()
-            return
-        }
-
-        if (illustration.hasErrors()) {
-            respond(illustration.errors, model: [illustration: illustration], view: 'editFeaturedImage')
-            return
-        }
-
-        Locale locale = request.locale
-        flash.message = crudMessageService.message(CRUD.UPDATE, domainName(locale), cmd.id, locale)
-    }
-        def featuredImage(Long id) {
-        Illustration illustration = illustrationService.get(id)
-        if (!illustration || illustration.filename == null) {
-            notFound()
-            return
-        }
-        render file: illustration.filename,
-                contentType: illustration.filename
-    }
 
     def edit(Long id) {
         respond illustrationService.get(id)

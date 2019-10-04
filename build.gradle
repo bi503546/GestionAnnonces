@@ -28,13 +28,13 @@ repositories {
 }
 
 dependencies {
+    compile 'org.grails.plugins:quartz-config-scheduler:2.0.0'
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
     compile "org.grails:grails-web-boot"
-    compile "org.grails.plugins:aws-sdk-s3:$awsSdkS3Version"
     compile "org.grails:grails-logging"
     compile "org.grails:grails-plugin-rest"
     compile "org.grails:grails-plugin-databinding"

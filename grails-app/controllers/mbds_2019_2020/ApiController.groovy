@@ -93,7 +93,7 @@ class ApiController {
                         dateCreated: new Date(),
                         state: Boolean.TRUE
                 )
-                if(params.userId){
+                if(request.JSON.userId){
                     newAnnonce.author = User.get(request.JSON.userId)
                 }
                 annonceService.save(newAnnonce)
@@ -159,4 +159,35 @@ class ApiController {
         }
         return response.status = 406 //406 Not Acceptable
     }
+
+    def users() {
+        switch(request.getMethod()) {
+            case "GET" :
+                def users = User.getAll()
+                if (!users)
+                    return response.status = 404
+                response.withFormat {
+                    json { render users as JSON }
+                    xml { render users as XML }
+                }
+                break
+            case "POST" :
+                if(!request.JSON.username || !request.JSON.password || !request.JSON.thumbnail)
+                    return response.status = 404
+                def newUser = new User(
+                    username : request.JSON.username,
+                    password : request.JSON.password,
+                        thumbnail : new Illustration(filename :request.JSON.thumbnail)
+
+                )
+                userService.save(newUser)
+                return response.status = 201
+                break
+            default :
+                return response.status = 405
+                break
+        }
+        return response.status = 406
+    }
+
 }

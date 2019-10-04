@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Gestionnaire annonces</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 <content tag="nav">
@@ -41,36 +43,31 @@
             </g:each>
         </ul>
     </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contollers<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+                <li class="dropdown-item">
+                    <g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName}</g:link>
+                </li>
+            </g:each>
+        </ul>
+    </li>
 </content>
 
 <div class="svg" role="presentation">
     <div class="grails-logo-container">
-        <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
+        <asset:image src="accueil.jpg" class="grails-logo"/>
     </div>
 </div>
 
 <div id="content" role="main">
-    <section class="row colset-2-its">
-        <h1>Welcome to Grails</h1>
-
-        <p>
-            Congratulations, you have successfully started your first Grails application! At the moment
-            this is the default page, feel free to modify it to either redirect to a controller or display
-            whatever content you may choose. Below is a list of controllers that are currently deployed in
-            this application, click on each to execute its default action:
-        </p>
-
-        <div id="controllers" role="navigation">
-            <h2>Available Controllers:</h2>
-            <ul>
-                <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                    <li class="controller">
-                        <g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName}</g:link>
-                    </li>
-                </g:each>
-            </ul>
+        <div>
+            <h1>Gestionnaires d'annonces</h1>
+            <h2>Boukadida Imen & RACHIDI ALAOUI Adnane</h2>
+            <h3>Master 2 MBDS</h3>
         </div>
-    </section>
+
 </div>
 
 </body>

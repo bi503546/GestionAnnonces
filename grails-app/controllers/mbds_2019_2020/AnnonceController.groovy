@@ -56,7 +56,7 @@ class AnnonceController {
                 int randomStringLength = 4
                 String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
                 String randomString = random(randomStringLength, charset.toCharArray())
-                it.transferTo(new File('C:/Users/DELL/Desktop/GestionAnnonces/grails-app/assets/importedImages/' + it.originalFilename + randomString))
+                it.transferTo(new File(grailsApplication.config.maconfig.assets_url + it.originalFilename + randomString))
                 annonce.addToIllustrations(new Illustration(filename: it.originalFilename + randomString))
             }
         }

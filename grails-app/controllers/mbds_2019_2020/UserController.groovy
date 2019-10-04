@@ -37,7 +37,7 @@ class UserController {
             int randomStringLength = 4
             String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
             String randomString = random(randomStringLength, charset.toCharArray())
-            file.transferTo(new File('C:/Users/DELL/Desktop/GestionAnnonces/grails-app/assets/importedImages/' + file.originalFilename + randomString))
+            file.transferTo(new File(grailsApplication.config.maconfig.assets_url + file.originalFilename + randomString))
             user.thumbnail = new Illustration(filename : file.originalFilename + randomString)
         }
 

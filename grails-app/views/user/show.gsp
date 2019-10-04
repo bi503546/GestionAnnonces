@@ -34,15 +34,15 @@
 
                 <li class="fieldcontain">
                     <span id="thumbnail-label" class="property-label">Thumbnail</span>
-                    <asset:image style="margin-left: 20px" src="${user.thumbnail.filename}"/>
+                    <asset:image style="margin-left: 20px; width:80px; height:80px" src="${user.thumbnail.filename}"/>
                 </li>
 
                 <li class="fieldcontain">
                     <span id="annonces-label" class="property-label">Annonces</span>
                     <div class="property-value" aria-labelledby="annonces-label">
                         <ul>
-                            <g:each in="${user.annonces}" var="ann">
-                                <li><g:link controller="annonce" action="show" id="${ann.id}">${ann.title}</g:link></li>
+                            <g:each in="${user.annonces}" var="annonce">
+                                <li><g:link controller="annonce" action="show" id="${annonce.id}">${annonce.title}</g:link></li>
                             </g:each>
                         </ul>
                     </div>

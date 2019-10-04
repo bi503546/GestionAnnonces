@@ -17,5 +17,4 @@ class Annonce {
         validTill blank: false
     }
 
-
 }

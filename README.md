@@ -6,7 +6,6 @@
 
 # Clone
 * Clone this repo to your local machine using : https://github.com/bi503546/GestionAnnonces.git
-
 * open project with IntelliJ IDE
 * go to module "grails-app" -> 
 conf ->
@@ -17,5 +16,7 @@ conf ->
 * Build Project (Ctr+9) and Launch it with Run
 * your apllication will be running at  http://localhost:8091/projet/
 
+
+
 # API Collection
-* La collection de notre APi se trouve dans le doisser Collection Postman dans le projet 
+* La collection de notre API se trouve dans le dossier Collection Postman dans le projet 

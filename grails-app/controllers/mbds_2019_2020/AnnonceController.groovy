@@ -24,22 +24,6 @@ class AnnonceController {
         respond new Annonce(params)
     }
 
-    def checkvalidity(Long id){
-
-        Annonce annoncecurrent = Annonce.findById(id)
-        def vt = annoncecurrent.validTill
-        def date = new Date()
-        //Return Value − The value 0 if the argument Date is equal to this Date;
-        // a value less than 0 if this Date is before the Date argument;
-        // and a value greater than 0 if this Date is after the Date argument.
-        if (vt.compareTo(sdf)<0)
-                {
-                    annoncecurrent.state = false
-        } else {
-
-        }
-    }
-
 
     def save(Annonce annonce) {
         if (annonce == null) {

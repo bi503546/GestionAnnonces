@@ -5,7 +5,7 @@ class Annonce {
     String description
     Date dateCreated
     Date validTill
-    Boolean state = Boolean.FALSE
+    Boolean state = Boolean.TRUE
 
     static belongsTo=[author: User]
 

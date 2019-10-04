@@ -24,12 +24,7 @@
 
                 <li class="fieldcontain">
                     <span id="username-label" class="property-label">Username</span>
-                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${user.username}</a></div>
-                </li>
-
-                <li class="fieldcontain">
-                    <span id="password-label" class="property-label">Password</span>
-                    <div class="property-value" aria-labelledby="thumbnail-label"><a href="/user/show/1">${user.password}</a></div>
+                    <div class="property-value" aria-labelledby="thumbnail-label"><a >${user.username}</a></div>
                 </li>
 
                 <li class="fieldcontain">

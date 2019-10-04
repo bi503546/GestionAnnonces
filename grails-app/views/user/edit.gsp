@@ -29,7 +29,9 @@
             <g:form resource="${this.user}" method="post" enctype="multipart/form-data">
                 <fieldset class="form">
                     <f:field property="username" bean="user" required="true"/>
-                    <f:field bean="user" property="password" required="true"/>
+                    <f:field bean="user" property="password" required="true">
+                        <input type="password" name="password" id="password" value="${user.password}">
+                    </f:field>
                     <f:field property="thumbnail" bean="user" required="false">
                         <input type="file" name="file" id="thumbnail">
                     </f:field>

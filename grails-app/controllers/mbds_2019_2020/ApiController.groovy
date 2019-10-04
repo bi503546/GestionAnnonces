@@ -5,6 +5,7 @@ import grails.converters.XML
 import java.text.SimpleDateFormat
 class ApiController {
     AnnonceService annonceService
+    UserService userService
     def pattern = "dd-MM-yyyy"
 
     def annonce() {
@@ -103,5 +104,59 @@ class ApiController {
                 break
         }
         return response.status = 406
+    }
+    def user() {
+        switch (request.getMethod()) {
+            case "GET":
+                if (!params.id)
+                    return response.status = 400
+                def user = User.get(params.id)
+                println(user)
+                if (!user)
+                    return response.status = 404
+                response.withFormat {
+                    json { render user as JSON }
+                    xml { render user as XML }
+                }
+                break
+            case "PUT":
+                if (!params.id)
+                    return response.status = 400
+                def user = User.get(params.id)
+                if (!user)
+                    return response.status = 404
+                //request.SON
+                if (!request.JSON.username || !request.JSON.password )
+                    return response.status = 400
+                user.username = request.JSON.username
+                user.password = request.JSON.password
+                userService.save(user)
+                return response.status = 200
+                break
+            case "PATCH" :
+                if (!params.id)
+                    return response.status = 400
+                def user = User.get(params.id)
+                if (!user)
+                    return response.status = 404
+                if(request.JSON.username)
+                    user.username = request.JSON.username
+                if(request.JSON.password)
+                    user.password = request.JSON.password
+                userService.save(user)
+                return response.status = 200
+            case "DELETE" :
+                if (!params.id)
+                    return response.status = 400
+                def user = User.get (params.id)
+                if (!user)
+                    return response.status = 404
+                user.delete(flush: true)
+                return response.status = 200
+            default :
+                return response.status = 405 //405 Method Not Allowed
+                break
+        }
+        return response.status = 406 //406 Not Acceptable
     }
 }

@@ -34,7 +34,7 @@
                             <g:link controller="user" action="show" id="${instance.id}">${instance.username}</g:link>
                         </td>
                         <td>
-                            <asset:image src="${instance.thumbnail.filename}"/>
+                            <asset:image style="margin-left: 20px; width:80px; height:80px"src="${instance.thumbnail.filename}"/>
                         </td>
                         <td>
                             <ul>

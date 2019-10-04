@@ -37,7 +37,7 @@
                     <div class="fieldcontain required">
                         <label for="password">Password
                             <span class="required-indicator">*</span>
-                            <input type="text" name="password" id="password">
+                            <input type="password" name="password" id="password">
                         </label>
                     </div>
                     <div class="fieldcontain required">

@@ -26,15 +26,46 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.annonce}" method="PUT">
-                <g:hiddenField name="version" value="${this.annonce?.version}" />
-                <fieldset class="form">
-                    <f:all bean="annonce"/>
+            <g:form resource="${this.annonce}" method="post" enctype="multipart/form-data">
+                <f:field bean="annonce" property="title"/>
+                <f:field bean="annonce" property="description"/>
+                <f:field bean="annonce" property="validTill"/>
+                <f:field bean="annonce" property="author">
+                    <select name="author"  id="author">
+                        <g:each in="${mbds_2019_2020.User.all}" var="user">
+                            <option value="${user.id}">${user.username}</option>
+                        </g:each>
+                    </select>
+                </f:field>
+
+                <f:field property="illustrations" bean="annonce">
+                    <input multiple="multiple" type="file" itemprop="prop" name="illu" />
+                    <g:each in="${annonce.illustrations}" var="illustration">
+                        <div class="container">
+                            <asset:image style="margin-left: 20px; width:100px; height:100px" src="${illustration.filename}"/>
+                            <input value="Supprimer" class="btn" type="button" onclick="callMyAjax(${annonce.id},${illustration.id})"/>
+                        </div>
+                    </g:each>
+                </f:field>
                 </fieldset>
                 <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
             </g:form>
         </div>
+    <g:javascript>
+
+  function callMyAjax(param1,param2){
+    $.ajax({
+       url : '${g.createLink(controller: 'annonce', action: 'deletefromillustrations')}',
+       data:{
+            param1:param1,
+            param2:param2
+            },
+       success :
+             window.location.reload()
+    });
+}
+    </g:javascript>
     </body>
 </html>

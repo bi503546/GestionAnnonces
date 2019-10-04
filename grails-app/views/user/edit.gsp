@@ -26,43 +26,19 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <form action="save" method="PUT" enctype="multipart/form-data">
-                <g:hiddenField name="version" value="${this.user?.version}" />
-                <fieldset class="form" >
-                    <div class="fieldcontain required">
-                        <label for="username">Username
-                            <span class="required-indicator">*</span>
-                            <input type="text" name="username" id="username" value="${user.username}">
-
-                        </label>
-                    </div>
-                    <div class="fieldcontain required">
-                        <label for="password">Password
-                            <span class="required-indicator">*</span>
-                            <input type="text" name="password" id="password" value="${user.password}">
-                        </label>
-                    </div>
-
-                    <div class="fieldcontain required">
-                        <label for="thumbnail">Thumbnail
-                            <input type="file" name="file" id="thumbnail">
-                        </label>
-                    </div>
-
-                <div class="fieldcontain required">
-                    <label>Annonces
-                        <ul>
-                            <g:each in="${user.annonces}" var="ann">
-                                <li><g:link controller="annonce" action="show" id="${ann.id}">${ann.title}</g:link></li>
-                            </g:each>
-                        </ul>
-                    </label>
-                </div>
+            <g:form resource="${this.user}" method="post" enctype="multipart/form-data">
+                <fieldset class="form">
+                    <f:field property="username" bean="user" required="true"/>
+                    <f:field bean="user" property="password" required="true"/>
+                    <f:field property="thumbnail" bean="user" required="false">
+                        <input type="file" name="file" id="thumbnail">
+                    </f:field>
                 </fieldset>
                 <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+                    <input class="update" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>
-            </form>
+            </g:form>
+
         </div>
     </body>
 </html>

@@ -1,6 +1,8 @@
 package mbds_2019_2020
 
 import grails.validation.ValidationException
+import java.text.SimpleDateFormat
+import static org.apache.commons.lang.RandomStringUtils.random
 import static org.springframework.http.HttpStatus.*
 
 class AnnonceController {
@@ -22,7 +24,21 @@ class AnnonceController {
         respond new Annonce(params)
     }
 
+    def checkvalidity(Long id){
 
+        Annonce annoncecurrent = Annonce.findById(id)
+        def vt = annoncecurrent.validTill
+        def date = new Date()
+        //Return Value − The value 0 if the argument Date is equal to this Date;
+        // a value less than 0 if this Date is before the Date argument;
+        // and a value greater than 0 if this Date is after the Date argument.
+        if (vt.compareTo(sdf)<0)
+                {
+                    annoncecurrent.state = false
+        } else {
+
+        }
+    }
 
 
     def save(Annonce annonce) {
@@ -30,6 +46,21 @@ class AnnonceController {
             notFound()
             return
         }
+
+        def file = request.getFiles('illu')
+
+        file.each {
+            if (it == null || it.empty) {
+                flash.message = "File cannot be empty"
+            } else {
+                int randomStringLength = 4
+                String charset = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
+                String randomString = random(randomStringLength, charset.toCharArray())
+                it.transferTo(new File('C:/Users/DELL/Desktop/GestionAnnonces/grails-app/assets/importedImages/' + it.originalFilename + randomString))
+                annonce.addToIllustrations(new Illustration(filename: it.originalFilename + randomString))
+            }
+        }
+
 
         try {
             annonceService.save(annonce)
@@ -71,6 +102,21 @@ class AnnonceController {
             }
             '*'{ respond annonce, [status: OK] }
         }
+    }
+
+    def deletefromillustrations(){
+
+        def illustrationId = params.param2
+        def annonceId = params.param1
+
+        def annonceInstance = Annonce.get(annonceId)
+        def IllustrationInstance = Illustration.get(illustrationId)
+
+        annonceInstance.removeFromIllustrations(IllustrationInstance)
+        annonceInstance.save(flush:true)
+
+        IllustrationInstance.delete(flush:true)
+
     }
 
     def delete(Long id) {

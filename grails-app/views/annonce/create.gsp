@@ -28,16 +28,19 @@
             
 %{--            ancien formaulaire sans les proprietes iluustration--}%
             
-            <g:form resource="${this.annonce}" method="POST">
+            <g:form resource="${this.annonce}" method="post" enctype="multipart/form-data">
                     <f:field bean="annonce" property="title"/>
                     <f:field bean="annonce" property="description"/>
                     <f:field bean="annonce" property="validTill"/>
-                    <f:field bean="annonce" property="author"/>
-                   <f:field bean="annonce" property="illustrations">
-                       <g:uploadForm name="myUpload" action="save" method="POST">
-                           <input type="file" name="illustration" />
-                           <g:submitButton name="create" value="create" />
-                       </g:uploadForm>
+                    <f:field bean="annonce" property="author">
+                        <select name="author"  id="author">
+                            <g:each in="${mbds_2019_2020.User.all}" var="user">
+                                <option value="${user.id}">${user.username}</option>
+                            </g:each>
+                        </select>
+                    </f:field>
+                    <f:field bean="annonce" property="illustrations">
+                           <input multiple="multiple" type="file" name="illu" />
                    </f:field>
 %{--                    <f:all bean="annonce"/>--}%
                 </fieldset>
@@ -46,8 +49,7 @@
                 </fieldset>
             </g:form>
             
-            
-            
+
 %{--            <form action="save" method="post" >--}%
 %{--                <fieldset class="form">--}%
 %{--                    <div class='fieldcontain'>--}%
@@ -67,6 +69,7 @@
 %{--                    <input type="submit" name="create" class="save" value="Create" id="create" />--}%
 %{--                </fieldset>--}%
 %{--            </form>--}%
+
 
         </div>
     </body>
